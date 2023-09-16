@@ -1,44 +1,24 @@
-import { useRef, useState } from 'react'
-import { useFetchData } from "./hook/fetchhook"
-import './App.css'
-
+import { useFetchData } from "./hook/fetchhook";
+import { Head } from "./components/Head/Head";
+import { FormQuestion } from "./components/FormQuestion/FormQuestion";
+import { ResultadosConsulta } from "./components/ResultConsulta/ResultadosConsulta";
 
 function App() {
-  const refInput = useRef(null)
-  const { data = [{}], error, loading, setQuery } = useFetchData('¿Como copiar articulos?')
-
-  const handleQuery = () => {
-    let question = refInput.current.value
-    setQuery(question)
-  }
-
-  if (loading) {
-    return <div>Cargando...</div>
-  }
-  if (error) {
-    return <div>Error: {error}</div>
-  }
-
-  if (data) {
-    return <div>
-      <div style={{ display: 'flex', gap: '14px' }}>
-        <input type="text" style={{ width: '350px' }} ref={refInput} />
-        <button onClick={handleQuery} style={{ border: '1px solid gray' }}>Nueva Pregunta</button>
-      </div>
-      {data.map((item, key) => (
-        <div key={key + 2} style={{ textAlign: 'justify' }}>
-          <p style={{ fontStyle: 'italic', fontWeight: 'bold' }}>{item.section_name}</p>
-          <div>{item.sentence_text}</div>
-        </div>
-      ))}
-    </div>
-  }
+  const { data, error, loading, setQuery } = useFetchData(" ");
 
   return (
-    <>
-
-    </>
-  )
+    <div className="flex flex-col max-w-full mx-8">
+      <div className="mx-auto text-center">
+        <Head />
+      </div>
+      <div className="max-w-3xl">
+        <FormQuestion fun={setQuery} />
+      </div>
+      {loading && <div>Cargando...</div>}
+      {error && <div>Error: {error}</div>}
+      <ResultadosConsulta data={data} />
+    </div>
+  );
 }
 
-export default App
+export default App;

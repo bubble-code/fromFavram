@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 export const useFetchData = (initialQuery) => {
 
     const [loading, setLoading] = useState(false)
-    const [data, setData] = useState({})
+    const [data, setData] = useState([])
     const [error, setError] = useState(null)
     const [query, setQuery] = useState(initialQuery)
 
@@ -23,7 +23,6 @@ export const useFetchData = (initialQuery) => {
                     throw new Error("Error al cargar los datos")
                 }
                 const responseData = await response.json()
-                console.log(responseData)
                 setData(responseData)
                 setLoading(false)
                 setError(null)
