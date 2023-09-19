@@ -1,6 +1,5 @@
 import PropTypes from "prop-types";
 
-
 export const ResultadosConsulta = ({ data }) => {
   if (!data || data.length === 0) {
     return (
@@ -18,7 +17,8 @@ export const ResultadosConsulta = ({ data }) => {
             {item.section_name}
             <i className="fas fa-exclamation-circle ml-2 text-red-500"></i>
           </p>
-          <div className="text-justify">{item.sentence_text}</div>
+          {/* <div className="text-justify">{item.sentence_text}</div> */}
+          <div dangerouslySetInnerHTML={{ __html: item.sentence_text }} />
         </div>
       ))}
     </div>
@@ -26,5 +26,5 @@ export const ResultadosConsulta = ({ data }) => {
 };
 
 ResultadosConsulta.propTypes = {
-  data: PropTypes.array
+  data: PropTypes.array,
 };
